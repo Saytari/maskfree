@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\JWTController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Carbon\Carbon;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +16,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return "api";
-});
+Route::post('auth', [JWTController::class, 'store']);
+
+Route::match(['put', 'patch'], 'auth', [JWTController::class, 'update']);
+
+Route::delete('auth', [JWTController::class, 'destroy']);
