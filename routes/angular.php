@@ -14,6 +14,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("angular", function() {
-    return 'angular';
+Route::middleware(['jwt.auth'])->group(function() {
+
+    Route::middleware(['user:is,"master"'])->group(function() {
+
+        Route::apiResource('center', App\Http\Controllers\CenterController::class);
+        
+    });
+
 });
