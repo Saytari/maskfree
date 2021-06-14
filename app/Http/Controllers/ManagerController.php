@@ -30,7 +30,7 @@ class ManagerController extends Controller
      */
     public function store(StoreManager $request, ManagerService $managerService)
     {
-        return $managerService->create($request->all());
+        $managerService->create($request->all());
 
         return $this->successMessage();
     }

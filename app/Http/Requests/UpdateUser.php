@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class UpdateUser extends FormRequest
+abstract class UpdateUser extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,7 +30,7 @@ class UpdateUser extends FormRequest
             'father_name' => 'required|string|min:2',
             'gender' => ['required', Rule::in(['male', 'female'])],
             'phone' => 'required|digits:10|unique:users,phone,' . $this->userID . '|unique:center_phones,number',
-            'identity_number' => 'required|digits:13|unique:users,' . $this->userID,
+            'identity_number' => 'required|digits:13|unique:users,identity_number,' . $this->userID,
             'birth_date' => 'required|date-format:Y-m-d|before: -20 year',
         ];
     }

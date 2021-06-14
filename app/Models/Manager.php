@@ -23,4 +23,5 @@ class Manager extends Model
     {
         return $this->belongsTo(Center::class);
     }
+    
 }

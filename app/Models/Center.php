@@ -40,4 +40,9 @@ class Center extends Model
     {
         return $this->hasOne(Manager::class);
     }
+
+    public function vaccinators()
+    {
+        return $this->hasMany(Vaccinator::class);
+    }
 }
