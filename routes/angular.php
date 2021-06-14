@@ -22,6 +22,8 @@ Route::middleware(['jwt.auth'])->group(function() {
         
         Route::apiResource('vaccine', App\Http\Controllers\VaccineController::class);
         
+        Route::apiResource('manager', App\Http\Controllers\ManagerController::class);
+        
     });
 
 });

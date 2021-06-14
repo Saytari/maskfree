@@ -35,4 +35,9 @@ class Center extends Model
     {
         return $this->belongsTo(City::class);
     }
+
+    public function manager()
+    {
+        return $this->hasOne(Manager::class);
+    }
 }
