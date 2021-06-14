@@ -16,6 +16,7 @@ class UserResource extends JsonResource
     {
         $array = collect(
             $this->only(
+                'id',
                 'first_name',
                 'last_name',
                 'father_name',

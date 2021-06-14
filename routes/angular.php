@@ -30,6 +30,8 @@ Route::middleware(['jwt.auth'])->group(function() {
 
         Route::apiResource('vaccinator', App\Http\Controllers\VaccinatorController::class);
         
+        Route::apiResource('receptionist', App\Http\Controllers\ReceptionistController::class);
+        
     });
 
 });

@@ -25,5 +25,9 @@ class RoleSeeder extends Seeder
         Role::create([
             'name' => 'vaccinator'
         ]);
+
+        Role::create([
+            'name' => 'receptionist'
+        ]);
     }
 }

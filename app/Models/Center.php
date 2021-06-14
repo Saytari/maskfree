@@ -45,4 +45,9 @@ class Center extends Model
     {
         return $this->hasMany(Vaccinator::class);
     }
+
+    public function receptionists()
+    {
+        return $this->hasMany(Receptionist::class);
+    }
 }

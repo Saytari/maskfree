@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Auth\Access\Response;
 use JWTAuth;
 
 class AuthServiceProvider extends ServiceProvider
@@ -39,7 +40,9 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('is', function(\App\Models\User $user, $expectedRole) {
-            return $user->role->name === $expectedRole;
+            return $user->role->name === $expectedRole
+                    ? Response::allow()
+                    : Response::deny("This action intended for ${expectedRole}s");
         });
     }
 }
