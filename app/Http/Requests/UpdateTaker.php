@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreReceptionist extends StoreUser
+class UpdateTaker extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class StoreReceptionist extends StoreUser
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -23,10 +23,10 @@ class StoreReceptionist extends StoreUser
      */
     public function rules()
     {
-        $receptionistRules = parent::rules();
-
-        $receptionistRules['birth_date'] = 'required';//|date_format:y-m-d|before:-25 year|after: -60 year';
-
-        return $receptionistRules;
+        $TakerRules=parent::rules();
+        $TakerRules['medical_notes']='';
+        $TakerRules['has_medical_job']='required';
+        $TakerRules['taker_type']='required';
+        return $TakerRules;
     }
 }

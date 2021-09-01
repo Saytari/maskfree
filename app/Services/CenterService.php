@@ -14,6 +14,7 @@ class CenterService extends AbstractService
 
     public function all()
     {
+
         return Center::all();
     }
 
@@ -56,9 +57,23 @@ class CenterService extends AbstractService
             $phonesToUpdate->all()
         );
     }
-    
+
     public function delete($center)
     {
         $center->delete();
     }
+    /*
+    public function getCenteropenningTime($center)
+    {
+      $center_day=Center_day::where('center_id', '=', $center->id)->first();
+      $center_day_period=Center_Day_Period::where('center_day_id','=',$center_day->id);
+      return $center_day_period->openning_time;
+    }
+    public function getCenterclosingTime($center)
+    {
+      $center_day=Center_day::where('center_id', '=', $center->id)->first();
+      $center_day_period=Center_Day_Period::where('center_day_id','=',$center_day->id);
+      return $center_day_period->closingTime_time;
+    }
+    */
 }

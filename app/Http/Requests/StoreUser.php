@@ -31,7 +31,7 @@ class StoreUser extends FormRequest
             'gender' => ['required', Rule::in(['male', 'female'])],
             'phone' => 'required|digits:10|unique:users|unique:center_phones,number',
             'identity_number' => 'required|digits:13|unique:users',
-            'birth_date' => 'required|date-format:Y-m-d|before: -20 year',
+            'birth_date' => 'required'//;|date-format:Y-m-d|before: -20 year',
         ];
     }
 }

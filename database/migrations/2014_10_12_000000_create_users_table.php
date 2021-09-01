@@ -18,12 +18,14 @@ class CreateUsersTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->string('father_name');
+            $table->string('state')->default('null');
             $table->enum('gender', ['male', 'female']);
             $table->string('phone');
             $table->date('birth_date');
             $table->string('identity_number')->unique();
             $table->string('password');
             $table->foreignId('role_id');
+            $table->string('noti_token');
             $table->timestamps();
         });
     }

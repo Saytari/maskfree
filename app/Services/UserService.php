@@ -14,7 +14,7 @@ class UserService extends AbstractService
     {
 
     }
-    
+
     public function createModel(Collection $userData)
     {
         $user = Role::firstWhere('name', $userData->get('role'))
@@ -27,5 +27,14 @@ class UserService extends AbstractService
         );
 
         return $user;
+    }
+    public function EditState($user)
+
+    {
+            if($user->state=='null')
+            $user->state = 'half protected';
+            else  if($user->state=='half protected')
+            $user->state = 'protected';
+            $user->update($user->only('state'));
     }
 }

@@ -3,8 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreReceptionist extends StoreUser
+
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +25,10 @@ class StoreReceptionist extends StoreUser
      */
     public function rules()
     {
-        $receptionistRules = parent::rules();
+        $requestRule['center_id']='required|';//|exists:centers,id';
+        $requestRule['request_date']='required';//|date-format:YYYY-MM-DD';
+       // $requestRule['prefferd_day']=['required', Rule::in(['sunday', 'monday','tuesday','wednsday','thursday','friday','saturday'])];
 
-        $receptionistRules['birth_date'] = 'required';//|date_format:y-m-d|before:-25 year|after: -60 year';
-
-        return $receptionistRules;
+        return $requestRule;
     }
 }

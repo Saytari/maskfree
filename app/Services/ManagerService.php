@@ -27,7 +27,7 @@ class ManagerService extends AbstractService
             ->put('role', 'manager')
             ->all()
         );
-        
+
         $user->manager()->create(
             $managerData
             ->only('center_id')

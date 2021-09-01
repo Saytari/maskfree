@@ -20,12 +20,17 @@ class Vaccine extends Model
     ];
 
     protected $guarded = [];
-    
+
 
     public function country()
     {
         return $this->belongsTo(Country::class);
     }
+    public function appointment()
+    {
+        return $this->belongsTo(appointment::class);
+    }
+
 
     public function doses()
     {

@@ -22,10 +22,11 @@ class LoginRequest extends FormRequest
      * @return array
      */
     public function rules()
-    {
+    { 
         return [
             'identity_number' => 'required|digits:13',
-            'password' => 'required|string|min:8'
+            'password' => 'required|string|min:8',
+            'noti_token' => 'string'
         ];
     }
 }

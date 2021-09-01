@@ -10,9 +10,13 @@ class Dose extends Model
     use HasFactory;
 
     protected $guarded = [];
-    
+
     public function vaccine()
     {
         return $this->belongsTo(Vaccine::class);
+    }
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class);
     }
 }

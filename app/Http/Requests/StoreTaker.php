@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreReceptionist extends StoreUser
+class StoreTaker extends StoreUser
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +24,13 @@ class StoreReceptionist extends StoreUser
      */
     public function rules()
     {
-        $receptionistRules = parent::rules();
+        $TakerRules=parent::rules();
+        $TakerRules['medical_notes']='string';
+        $TakerRules['has_medical_job']='required';
+        $TakerRules['taker_type']=['required', Rule::in(['t', 'r'])];
+        $TakerRules['password']='required|string|min:8';
 
-        $receptionistRules['birth_date'] = 'required';//|date_format:y-m-d|before:-25 year|after: -60 year';
 
-        return $receptionistRules;
+        return $TakerRules;
     }
 }

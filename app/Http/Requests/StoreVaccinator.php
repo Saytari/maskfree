@@ -25,7 +25,7 @@ class StoreVaccinator extends StoreUser
     {
         $vaccinatorRules = parent::rules();
 
-        $vaccinatorRules['birth_date'] = 'required|date_format:Y-m-d|before:-25 year|after: -60 year';
+        $vaccinatorRules['birth_date'] = 'required';//|date_format:Y-m-d|before:-25 year|after: -60 year';
 
         return $vaccinatorRules;
     }

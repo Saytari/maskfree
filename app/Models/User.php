@@ -33,7 +33,7 @@ class User extends Authenticatable implements JWTSubject
     protected $with = [
         'role'
     ];
-    
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *
@@ -78,4 +78,20 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->hasOne(Receptionist::class);
     }
+    public function taker()
+    {
+        return $this->hasOne(Taker::class);
+    }
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class);
+    }
+    public function centerLine()
+    {
+        return $this->belongsTo(CenterLine::class);
+    }
+    public function request(){
+        return $this->hasone(Request::class);
+    }
+
 }

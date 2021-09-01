@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreReceptionist extends StoreUser
+class StoreCenterLine extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,10 +23,8 @@ class StoreReceptionist extends StoreUser
      */
     public function rules()
     {
-        $receptionistRules = parent::rules();
-
-        $receptionistRules['birth_date'] = 'required';//|date_format:y-m-d|before:-25 year|after: -60 year';
-
-        return $receptionistRules;
+        return [
+            'user_id'=>'required'
+        ];
     }
 }

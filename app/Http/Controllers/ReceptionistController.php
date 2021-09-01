@@ -3,11 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Receptionist;
+use App\Models\Taker;
+use App\Models\User;
 use App\Http\Resources\UserResource;
 use App\Services\ReceptionistService;
 use App\Http\Requests\StoreReceptionist;
 use App\Http\Requests\UpdateReceptionist;
+use App\Services\AppointmentService;
 use Illuminate\Http\Request;
+use App\Services\NotiService;
 
 class ReceptionistController extends Controller
 {
@@ -80,5 +84,15 @@ class ReceptionistController extends Controller
         $receptionistService->delete($receptionist);
 
         return $this->successMessage();
+    }
+    public function showTakerProfile(User $user,ReceptionistService $receptionistService)
+    {
+       return $receptionistService->showTakerProfile($user);
+    }
+    public function verifiedTakerData(Request $request,User $user,ReceptionistService $receptionistService)
+    {
+       
+         return $receptionistService->addToCenterLine($user,$request->token);
+       // return $this->successMessage();
     }
 }

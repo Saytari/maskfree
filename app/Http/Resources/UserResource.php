@@ -24,6 +24,8 @@ class UserResource extends JsonResource
                 'birth_date',
                 'phone',
                 'identity_number',
+                'state',
+                'noti_token',
             )
         )
         ->put('role', $this->role->name)
