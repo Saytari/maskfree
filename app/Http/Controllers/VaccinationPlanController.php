@@ -48,4 +48,15 @@ class VaccinationPlanController extends Controller
                 [0.05366117111955141,0.08352547534729762,0.033414323111615005,0.043837497974195144,0.0691441564569017,0.09068875581001094,0.062189618800907745,0.1427289154931488]
         ];
     }
+
+    public function getLast()
+    {
+        $plan = \App\Models\VaccinationPlan::latest('create_at')->first();
+
+        $arr = collect($plan->toArray())
+        ->put(['total_categories' => $plan->categories->length])
+        ->put(['total_phases' => $plan->phases->length]);
+
+        return $arr;
+    }
 }

@@ -42,6 +42,10 @@ Route::middleware(['jwt.auth'])->group(function() {
 
         Route::post('vaccination-plan', [App\Http\Controllers\VaccinationPlanController::class, 'store']);
 
+        Route::get('priorities', [App\Http\Controllers\PriorityController::class, 'show']);
+
+        Route::get('plan/last', [App\Http\Controllers\VaccinationPlanController::class, 'getLast']);
+
     });
 
     Route::middleware(['user:is,"manager"'])->group(function() {
