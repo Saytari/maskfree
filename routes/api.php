@@ -1,7 +1,12 @@
 <?php
 
 use App\Http\Controllers\JWTController;
+
+use App\Http\Controllers\RequestController;
+use App\Http\Controllers\ManagerController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\TakerController;
+
 use Illuminate\Support\Facades\Route;
 use Carbon\Carbon;
 
@@ -15,6 +20,8 @@ use Carbon\Carbon;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+
+
 
 Route::post('auth', [JWTController::class, 'store']);
 

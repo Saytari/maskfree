@@ -3,8 +3,10 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class LoginRequest extends FormRequest
+
+class StoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +24,11 @@ class LoginRequest extends FormRequest
      * @return array
      */
     public function rules()
-    { 
-        return [
-            'identity_number' => 'required|digits:13',
-            'password' => 'required|string|min:8',
-            'noti_token' => 'string'
-        ];
+    {
+        $requestRule['center_id']='required|';//|exists:centers,id';
+        $requestRule['request_date']='required';//|date-format:YYYY-MM-DD';
+       // $requestRule['prefferd_day']=['required', Rule::in(['sunday', 'monday','tuesday','wednsday','thursday','friday','saturday'])];
+
+        return $requestRule;
     }
 }

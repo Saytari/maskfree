@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class UpdateTaker extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class LoginRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,11 +22,11 @@ class LoginRequest extends FormRequest
      * @return array
      */
     public function rules()
-    { 
-        return [
-            'identity_number' => 'required|digits:13',
-            'password' => 'required|string|min:8',
-            'noti_token' => 'string'
-        ];
+    {
+        $TakerRules=parent::rules();
+        $TakerRules['medical_notes']='';
+        $TakerRules['has_medical_job']='required';
+        $TakerRules['taker_type']='required';
+        return $TakerRules;
     }
 }

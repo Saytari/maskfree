@@ -2,13 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
+
+use App\Http\Requests\AddImageSignature;
+use App\Models\Vaccinator;
 use App\Policy\VaccinatorPolicy;
 use App\Services\VaccinatorService;
 use App\Http\Resources\UserResource;
 use App\Http\Requests\StoreVaccinator;
 use App\Http\Requests\UpdateVaccinator;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
+use App\Models\User;
+use App\Services\CenterLineService;
+use App\Services\VaccineService;
+use Carbon\Carbon;
 
 class VaccinatorController extends Controller
 {
@@ -82,4 +89,32 @@ class VaccinatorController extends Controller
 
         return $this->successMessage();
     }
+    public function vaccineConfirm(Request $request,User $user,VaccinatorService $vaccinatorService)
+    {
+       
+        $appointments=Appointment::where('user_id', '=', $user->id)->get();
+        $now = Carbon::now();
+        $now->addHours(3);
+        foreach ($appointments as $appoint ){
+            $edate =new Carbon($appoint->appointment_date);
+            if ( $now->isSameDay($edate)){
+                $appointment = $appoint;
+            }   
+        }
+       
+       $vaccinatorService->vaccineConfirm($appointment,$user,$request->token);
+       return $this->successMessage();
+
+    }
+    public function showTakerProfile(User $user,VaccinatorService $vaccinatorService)
+    { 
+        
+       return  $vaccinatorService->showTakerMedicalProfile($user);
+    }
+
+
+
+
+
+
 }

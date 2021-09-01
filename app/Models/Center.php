@@ -51,6 +51,19 @@ class Center extends Model
         return $this->hasMany(Receptionist::class);
     }
 
+    public function appointment()
+    {
+        return $this->belongsTo(Appointment::class);
+    }
+    public function request()
+    {
+        return $this->belongsTo(Request::class);
+    }
+    public function center_line()
+    {
+        return $this->belongsTo(Center_line::class);
+    }
+
     public function centerDoses()
     {
         return $this->hasMany(\App\Models\CenterDose::class);

@@ -35,7 +35,7 @@ class StoreReceptionist extends StoreUser
     {
         $receptionistRules = parent::rules();
 
-        $receptionistRules['birth_date'] = 'required|date_format:Y-m-d|before:-25 year|after: -60 year';
+        $receptionistRules['birth_date'] = 'required';//|date_format:y-m-d|before:-25 year|after: -60 year';
 
         return $receptionistRules;
     }

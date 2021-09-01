@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class StoreCenterLine extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,11 +22,9 @@ class LoginRequest extends FormRequest
      * @return array
      */
     public function rules()
-    { 
+    {
         return [
-            'identity_number' => 'required|digits:13',
-            'password' => 'required|string|min:8',
-            'noti_token' => 'string'
+            'user_id'=>'required'
         ];
     }
 }

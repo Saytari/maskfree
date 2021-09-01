@@ -34,9 +34,9 @@ class StoreManager extends StoreUser
     {
         $managerRules = parent::rules();
 
-        $managerRules['birth_date'] = 'required|date_format:Y-m-d|before:-25 year|after: -60 year';
+        $managerRules['birth_date'] = 'required';//date_format:Y-m-d|before:-25 year|after: -60 year';
 
-        $managerRules['center_id'] = 'required|integer|exists:centers,id|unique:managers,center_id';
+        $managerRules['center_id'] = 'required|integer';//|exists:centers,id|unique:managers,center_id';
 
         return $managerRules;
     }

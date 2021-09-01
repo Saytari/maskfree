@@ -18,9 +18,11 @@ class CenterController extends Controller
      */
     public function index(CenterService $centerService)
     {
+        
         $centers = $centerService->all();
 
         return CenterResource::collection($centers);
+       //return $centers;
     }
 
     /**

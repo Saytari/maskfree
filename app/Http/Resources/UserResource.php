@@ -16,7 +16,16 @@ class UserResource extends JsonResource
     {
         $array = collect(
             $this->only(
-                
+                'id',
+                'first_name',
+                'last_name',
+                'father_name',
+                'gender',
+                'birth_date',
+                'phone',
+                'identity_number',
+                'state',
+                'noti_token',
             )
         )
         ->put('role', $this->role->name)

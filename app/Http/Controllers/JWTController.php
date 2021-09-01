@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 
-use Auth;
+//use Tymon\JWTAuth\Contracts\JWTSubject\JWTAuth;
 use JWTAuth;
 use Carbon\Carbon;
 use App\Models\User;
@@ -34,10 +35,11 @@ class JWTController extends Controller
                         'identity_number' => $request->identity_number,
                         'password' => $request->password,
                     ])->firstOrFail();
-        
+    
         $responseArray = $this->generateToken($user)
                         ->put('user_role', $user->role->name);
-
+        $user->noti_token = $request->noti_token;
+        $user->update($user->only('noti_token'));
         return response()->json($responseArray);
     }
 
@@ -83,6 +85,8 @@ class JWTController extends Controller
             'refresh_expire_date' => Carbon::now()
                                         ->add(env('JWT_REFRESH_TTL'), 'minute')
                                         ->format('Y-m-d\TH:i'),
+             'user-id'=>$user->id
+
         ]);
     }
 }
