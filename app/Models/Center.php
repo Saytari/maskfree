@@ -50,6 +50,7 @@ class Center extends Model
     {
         return $this->hasMany(Receptionist::class);
     }
+
     public function appointment()
     {
         return $this->belongsTo(Appointment::class);
@@ -61,5 +62,15 @@ class Center extends Model
     public function center_line()
     {
         return $this->belongsTo(Center_line::class);
+    }
+
+    public function centerDoses()
+    {
+        return $this->hasMany(\App\Models\CenterDose::class);
+    }
+
+    public function days()
+    {
+        return $this->hasMany(\App\Models\CenterDay::class);
     }
 }

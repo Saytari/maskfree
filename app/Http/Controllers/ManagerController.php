@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Manager;
 use App\Services\ManagerService;
 use App\Http\Requests\StoreManager;
-use App\Http\Resources\UserResource;
+use App\Http\Resources\ManagerResource;
 use Illuminate\Http\Request;
 
 class ManagerController extends Controller
@@ -19,7 +19,7 @@ class ManagerController extends Controller
     {
         $managers = $managerService->all();
 
-        return UserResource::collection($managers);
+        return ManagerResource::collection($managers);
     }
 
     /**
@@ -43,7 +43,7 @@ class ManagerController extends Controller
      */
     public function show(Manager $manager)
     {
-        return new UserResource($manager->user);
+        return new ManagerResource($manager);
     }
 
     /**
@@ -74,5 +74,10 @@ class ManagerController extends Controller
         $managerService->delete($manager);
 
         return $this->successMessage();
+    }
+
+    public function me() {
+
+        return new ManagerResource(auth()->user()->manager);
     }
 }

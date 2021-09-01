@@ -6,6 +6,17 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCenter extends FormRequest
 {
+    public function messages()
+    {
+        return [
+            'required' => 'هذا الحقل مطلوب',
+            'min' => 'يجب أن تكون عدد المحارف :min على الأقل',
+            'unique' => 'القيمة المدخلة موجودة مسبقاً.',
+            'alpha' => 'يجب أن تتكون من أحرف فقط',
+            'digits' => 'يجب ان تكون عدد المحارف :digits'
+        ];
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -24,9 +35,9 @@ class StoreCenter extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|min:2|unique:centers',
-            'street' => 'required|string',
-            'city' => 'required|alpha',
+            'name' => 'bail|required|string|min:2|unique:centers',
+            'street' => 'bail|required|string',
+            'city' => 'bail|required|alpha',
             'phones' => 'required|array',
             'phones.0' => 'required',
             'phones.*' => 'digits:10|unique:center_phones,number',

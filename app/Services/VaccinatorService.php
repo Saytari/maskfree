@@ -43,12 +43,16 @@ class VaccinatorService extends AbstractService
         return $user;
     }
 
-    public function update($vaccinator, $updatedData)
+    public function update($vaccinator, $managerData)
     {
-        $vaccinator->user->update(
-            collect($updatedData)
-            ->all()
-        );
+        $vaccinator->user->first_name = $managerData['first_name'];
+        $vaccinator->user->last_name = $managerData['last_name'];
+        $vaccinator->user->father_name = $managerData['father_name'];
+        $vaccinator->user->gender = $managerData['gender'];
+        $vaccinator->user->phone = $managerData['phone'];
+        $vaccinator->user->identity_number = $managerData['identity_number'];
+        $vaccinator->user->birth_date = $managerData['birth_date'];
+        $vaccinator->user->save();
     }
 
     public function delete($vaccinator)

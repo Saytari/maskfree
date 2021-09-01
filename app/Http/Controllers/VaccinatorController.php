@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Http\Requests\AddImageSignature;
 use App\Models\Vaccinator;
 use App\Policy\VaccinatorPolicy;
@@ -68,10 +69,10 @@ class VaccinatorController extends Controller
      */
     public function update(
         UpdateVaccinator $request,
-        Vaccinator $vaccinator,
+        User $user,
         VaccinatorService $vaccinatorService
     ) {
-       $vaccinatorService->update($vaccinator, $request->all());
+       $vaccinatorService->update($user->vaccinator, $request->all());
 
         return $this->successMessage();
     }

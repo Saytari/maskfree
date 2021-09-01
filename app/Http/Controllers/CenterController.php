@@ -34,7 +34,7 @@ class CenterController extends Controller
     public function store(StoreCenter $request, CenterService $centerService)
     {
         $centerService->create($request->all());
-
+    
         return $this->successMessage();
     }
 

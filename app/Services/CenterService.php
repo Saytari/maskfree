@@ -34,6 +34,8 @@ class CenterService extends AbstractService
             })->all()
         );
 
+        $this->createDosesForCenters($center);
+        $this->createDaysForCenter($center);
         return $center;
     }
 
@@ -43,9 +45,15 @@ class CenterService extends AbstractService
      */
     public function update($center, $updateData)
     {
+        $center->name = $updateData['name'];
+
+        $center->street = $updateData['street'];
+
         $city = $this->cityService->firstOrCreate([
             'name' => $updateData['city']
         ]);
+
+        $center->city_id = $city->id;
 
         $phonesToUpdate = collect($updateData['phones'])->map(function($value, $key) {
             return ['number' => $value];
@@ -56,12 +64,15 @@ class CenterService extends AbstractService
         $center->phones()->createMany(
             $phonesToUpdate->all()
         );
+
+        $center->save();
     }
 
     public function delete($center)
     {
         $center->delete();
     }
+
     /*
     public function getCenteropenningTime($center)
     {
@@ -76,4 +87,32 @@ class CenterService extends AbstractService
       return $center_day_period->closingTime_time;
     }
     */
+
+    public function createDosesForCenters($center)
+    {
+        $vaccines = \App\Models\Vaccine::all();
+
+        foreach($vaccines as $vaccine)
+            foreach($vaccine->doses as $dose) {
+                $centerDose = new \App\Models\CenterDose();
+                $centerDose->dose_id = $dose->id;
+                $centerDose->center_id = $center->id;
+                $centerDose->save();
+            }
+    }
+
+    public function createDaysForCenter($center)
+    {
+        foreach (\App\Models\Day::all() as $day)
+            $center->days()->create([
+                'day_id' => $day->id
+            ]);
+
+        foreach ($center->days as $day)
+            $day->periods()->create([
+                'openning_time' => '07:00:00',
+                'closeing_time' => '19:00:00'
+            ]);
+    }
 }
+
