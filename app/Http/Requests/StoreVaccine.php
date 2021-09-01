@@ -6,6 +6,18 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreVaccine extends FormRequest
 {
+    public function messages()
+    {
+        return [
+            'required' => 'هذا الحقل مطلوب',
+            'min' => 'يجب أن تكون عدد المحارف :min على الأقل',
+            'unique' => 'القيمة المدخلة موجودة مسبقاً.',
+            'alpha' => 'يجب أن تتكون من أحرف فقط',
+            'numeric' => 'يجب أن تكون القيمة عددية',
+            'integer' => 'يجب أن تكون القيمة عدد صحيح'
+        ];
+    }
+
     /**
      * Determine if the user is authorized to make this request.
      *

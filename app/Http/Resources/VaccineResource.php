@@ -22,6 +22,7 @@ class VaccineResource extends JsonResource
             'period_between_doses' => $this->period_between_doses,
             'immunization' => $this->immunization,
             'total_doses' => $this->totalDoses,
+            'doses' => $this->doses
         ];
     }
 }

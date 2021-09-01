@@ -33,6 +33,7 @@ class VaccineService extends AbstractService
             $this->prepareDoses(1, $vaccineData->get('total_doses'))
         );
 
+        $this->createDosesForCenters($vaccine);
         return $vaccine;
     }
 
@@ -86,5 +87,18 @@ class VaccineService extends AbstractService
     public function delete(Vaccine $vaccine)
     {
         $vaccine->delete();
+    }
+
+    public function createDosesForCenters($vaccine)
+    {
+        $centers = \App\Models\Center::all();
+
+        foreach($vaccine->doses as $dose)
+            foreach($centers as $center) {
+                $centerDose = new \App\Models\CenterDose();
+                $centerDose->dose_id = $dose->id;
+                $centerDose->center_id = $center->id;
+                $centerDose->save();
+            }
     }
 }

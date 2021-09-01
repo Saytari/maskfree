@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vaccinator;
+use App\Models\User;
 use App\Policy\VaccinatorPolicy;
 use App\Services\VaccinatorService;
 use App\Http\Resources\UserResource;
@@ -62,10 +62,10 @@ class VaccinatorController extends Controller
      */
     public function update(
         UpdateVaccinator $request,
-        Vaccinator $vaccinator,
+        User $user,
         VaccinatorService $vaccinatorService
     ) {
-       $vaccinatorService->update($vaccinator, $request->all());
+       $vaccinatorService->update($user->vaccinator, $request->all());
 
         return $this->successMessage();
     }

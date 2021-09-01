@@ -15,4 +15,9 @@ class Dose extends Model
     {
         return $this->belongsTo(Vaccine::class);
     }
+
+    public function centerDoses()
+    {
+        return $this->hasMany(\App\Models\CenterDose::class);
+    }
 }

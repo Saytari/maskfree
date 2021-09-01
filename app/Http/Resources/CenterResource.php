@@ -15,6 +15,7 @@ class CenterResource extends JsonResource
     public function toArray($request)
     {
         return [
+          'id' => $this->id,
           'name' => $this->name,
           'city' => $this->city->name,
           'street' => $this->street,
