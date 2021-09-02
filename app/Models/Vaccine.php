@@ -26,6 +26,7 @@ class Vaccine extends Model
     {
         return $this->belongsTo(Country::class);
     }
+
     public function appointment()
     {
         return $this->belongsTo(appointment::class);
@@ -40,5 +41,10 @@ class Vaccine extends Model
     public function getTotalDosesAttribute()
     {
         return $this->doses->count();
+    }
+
+    public function appos()
+    {
+        return $this->hasMany(Appointment::class);
     }
 }

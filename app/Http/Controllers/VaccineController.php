@@ -76,4 +76,28 @@ class VaccineController extends Controller
 
         return $this->successMessage();
     }
+
+    public function activity(Vaccine $vaccine)
+    {
+
+    }
+
+    public function activities()
+    {
+        if (\App\Models\Vaccine::count() == 0)
+            return ['message' => 'no vaccines'];
+
+        $dataToSend = [
+            'vaccines' => [],
+            'total' => []
+        ];
+
+        foreach (\App\Models\Vaccine::all() as $vaccineIndex => $vaccine) {
+            $dataToSend[$vaccineIndex]['vaccines'][] = $vaccine->name;
+
+            $dataToSend[$vaccineIndex]['total'][] = $vaccine->appos->count();
+        }
+
+        return $dataToSend;
+    }
 }

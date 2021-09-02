@@ -12,7 +12,6 @@ use App\Http\Requests\StoreTaker;
 use App\Http\Requests\UpdateTaker;
 use Illuminate\Http\Request;
 
-
 class TakerController extends Controller
 {
     /**
@@ -89,7 +88,7 @@ class TakerController extends Controller
 
         return $this->successMessage();
     }
-
+    
     public function hasRequest(User $user,RequestService $requestService){
         return $requestService->userHasRequest($user);
     }
@@ -98,6 +97,85 @@ class TakerController extends Controller
     }
     public function couldOrder()
     {
-        return ['couldOrder'=>'true'];
+        $centersTotalDosesInThisMonth = $this->calculateTotalCentersDosesInThisMonth();
+
+        $categoryTakenDosesInThisMonth = $this->calculateCategoryTotalDoses();
+
+        $userCategoryPriority = $this->getUserCategoryPriority();
+
+        $couldOrder = ($categoryTakenDosesInThisMonth / $userCategoryPriority) <= $centersTotalDosesInThisMonth;
+
+        return [
+            'message' => $couldOrder
+        ];
+    }
+
+    protected function calculateTotalCentersDosesInThisMonth()
+    {
+        $totalDoses = 0;
+
+        $totalDays = 0;
+
+        $centers = \App\Models\Center::with('centerDoses')->withCount('days as totalDays')->get();
+
+        foreach ($centers as $center) {
+            $totalDays = $center->totalDays;
+
+            foreach($center->centerDoses as $centerDose)
+                $totalDoses += $centerDose->daily_total;
+        }
+
+        // Approximatly, it should calculate the currency of every day in this month
+        $totalDays = 4 * $totalDays;
+
+        return $totalDays * $totalDoses;
+
+    }
+
+    protected function calculateCategoryTotalDoses()
+    {
+        $user = auth()->user();
+
+        $userAge = \Carbon\Carbon::createFromDate($user->birth_date)->diffInYears(\Carbon\Carbon::now());
+
+        $phase = \App\Models\Phase::orderBy('created_at', 'desc')
+                                      ->where('start_date', "<=", \Carbon\Carbon::now())
+                                      ->where('end_date', '>=', \Carbon\Carbon::now())
+                                      ->first();
+
+        $category = \App\Models\Category::orderBy('created_at', 'desc')
+                                            ->where('start_age', "<=", $userAge)
+                                            ->where('end_age', '>=', $userAge)
+                                            ->first();
+        
+        $thisMonthAppointment = \App\Models\Appointment::with('user')
+                                                        ->where('appointment_date', '>=', new \Carbon\Carbon('first day of this month'))
+                                                        ->where('appointment_date', '<=', new \Carbon\Carbon('last day of this month'))
+                                                        ->get();
+
+        $totalCategoryDosesInThisMonth = 0;
+
+        foreach($thisMonthAppointment as $app) {
+            $apoUserAge = \Carbon\Carbon::createFromDate($app->$user->birth_date)->diffInYears(\Carbon\Carbon::now());
+            
+            if ($category->start_age <= $apoUserAge && $category->end_age >= $userAge)
+                $totalCategoryDosesInThisMonth++;
+        }
+
+        return $totalCategoryDosesInThisMonth;     
+    }
+
+    public function getUserCategoryPriority()
+    {
+        $userAge =  \Carbon\Carbon::createFromDate(auth()->user()->birth_date)->diffInYears(\Carbon\Carbon::now());
+
+        $priority = \App\Models\Category::orderBy('created_at', 'desc')
+                                            ->where('start_age', "<=", $userAge)
+                                            ->where('end_age', '>=', $userAge)
+                                            ->first()
+                                            ->priorties()
+                                            ->where('phase_id', $phase->id)
+                                            ->first();
+        return $priority->ratio;
     }
 }

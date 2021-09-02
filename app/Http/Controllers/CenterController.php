@@ -79,4 +79,9 @@ class CenterController extends Controller
 
         return $this->successMessage();
     }
+
+    public function activity(Center $center)
+    {
+        
+    }
 }

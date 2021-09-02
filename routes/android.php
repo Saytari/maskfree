@@ -22,6 +22,8 @@ use App\Http\Controllers\AppointmentController;
 |
 */
 
+
+
 Route::apiResource('user',App\Http\Controllers\TakerController::class);
 //register
 Route::post('user/takers',[TakerController::class,'store']);

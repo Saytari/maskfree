@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use \Carbon\Carbon;
 /*
 |--------------------------------------------------------------------------
 | Angular Routes
@@ -46,6 +46,9 @@ Route::middleware(['jwt.auth'])->group(function() {
 
         Route::get('plan/last', [App\Http\Controllers\VaccinationPlanController::class, 'getLast']);
 
+        Route::get('vaccine-activities', [App\Http\Controllers\VaccineController::class, 'activities']);
+        
+        // Route::get('vaccine/activities/{vaccine}', [App\Http\Controllers\VaccineController::class, 'activity']);
     });
 
     Route::middleware(['user:is,"manager"'])->group(function() {

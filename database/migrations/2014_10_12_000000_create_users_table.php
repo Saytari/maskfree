@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('identity_number')->unique();
             $table->string('password');
             $table->foreignId('role_id');
-            $table->string('noti_token');
+            $table->string('noti_token')->nullable();
             $table->timestamps();
         });
     }
